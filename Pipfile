@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 pypandoc = "*"
 requests-html = "*"
+win-unicode-console = "*"
 
 [dev-packages]
 

@@ -1,7 +1,8 @@
 import requests_html as rh
 import pypandoc
+import sys
 
-def generate_directory_pdf(url, name, s=None):
+def generate_directory_epub(url, name, s=None):
     s = rh.HTMLSession() if not s else s
     r1 = s.get(url)
 
@@ -19,19 +20,19 @@ def generate_directory_pdf(url, name, s=None):
             try:
                 if name in ["Setup", "Tutorials", "Reference"]:  # will give duplicate id error, go through pages one by one to skip error page
                     print("testing " + l1, end='')
-                    output = pypandoc.convert_text(div.html, "pdf", format="html", outputfile="/tmp/kubernetes_pdf_doc_tmp.pdf".format(name), extra_args=['--pdf-engine=xelatex'])
+                    output = pypandoc.convert_text(div.html, "epub3", format="html", outputfile="/kubernetes_epub_doc_tmp.epub", extra_args=[])
                     print(" works")
             except Exception as e:
                 print(" failed!")
                 print(e)
             else:
                 html += div.html
-        with open("/tmp/{}.html".format(name), "wt") as f:
+        with open("/{}.html".format(name), "wt", encoding="utf-8") as f:
             f.write(html)
 
-    print("generating pdf...")
+    print("generating epub for " + name)
     try:
-        output = pypandoc.convert_text(html, "pdf", format="html", outputfile="./{}.pdf".format(name), extra_args=['--pdf-engine=xelatex', '--css=codeblock_wrap.css'])
+        output = pypandoc.convert_text(html, "epub3", format="html", outputfile="./{}.epub".format(name), extra_args=['--css=codeblock_wrap.css'])
     except Exception as e:
         print(e)
 
@@ -50,4 +51,4 @@ if __name__ == '__main__':
     directories_pairs = [("https://kubernetes.io/docs/{}/".format(n.lower()), n) for n in directories]
     for url, name in directories_pairs:
         print(name)
-        generate_directory_pdf(url, name)
+        generate_directory_epub(url, name)

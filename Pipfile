@@ -9,6 +9,7 @@ requests-html = "*"
 win-unicode-console = "*"
 
 [dev-packages]
+pylint = "*"
 
 [requires]
 python_version = "3"

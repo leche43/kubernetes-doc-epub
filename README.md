@@ -7,11 +7,10 @@ ePUB files are grouped in sections:
 
 * Setup
 * Concepts
-* Getting Started Guide (Independent Solutions)
 * Tasks
 * Tutorials
 * Reference
-* Imported Docs
+* Contribute
 
 For a more detailed index, see [here](https://kubernetes.io/docs/home/#browsedocs)
 
@@ -25,4 +24,4 @@ For a more detailed index, see [here](https://kubernetes.io/docs/home/#browsedoc
 # How to run the code
 1. Install the dependencies. Use `$ pipenv install` for installing python packages.
 2. `$ pipenv shell`
-3. `$ python kubernetes-doc.py`
+3. `$ python kubernetes-doc2epub.py`

@@ -24,6 +24,9 @@ def generate_directory_epub(url, name, s=None):
     if not os.path.exists('./tmp/'):
         os.makedirs('./tmp/')
 
+    if not os.path.exists('./epub/'):
+        os.makedirs('./epub/')
+
     print("downloading...")
     for l1 in links:
         r2 = s.get(l1)
@@ -33,7 +36,7 @@ def generate_directory_epub(url, name, s=None):
             try:
                 if name in ["Setup", "Tutorials", "Reference"]:  # will give duplicate id error, go through pages one by one to skip error page
                     print("testing " + l1, end='')
-                    output = pypandoc.convert_text(div.html, "epub3", format="html", outputfile="./tmp/kubernetes_epub_doc_tmp.epub", extra_args=[])
+                    pypandoc.convert_text(div.html, "epub3", format="html", outputfile="./tmp/kubernetes_epub_doc_tmp.epub", extra_args=[])
                     print(" works")
             except Exception as e:
                 print(" failed!")
@@ -45,7 +48,7 @@ def generate_directory_epub(url, name, s=None):
 
     print("generating epub for " + name)
     try:
-        output = pypandoc.convert_text(html, "epub3", format="html", outputfile="./{}.epub".format(name), extra_args=['--css=codeblock_wrap.css', '--epub-metadata=./metadata.xml'])
+        pypandoc.convert_text(html, "epub3", format="html", outputfile="./epub/{}.epub".format(name), extra_args=['--css=codeblock_wrap.css', '--epub-metadata=./metadata.xml'])
     except Exception as e:
         print(e)
 
